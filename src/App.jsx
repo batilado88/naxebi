@@ -30,8 +30,11 @@ export default function NaxebiApp() {
     return Math.round((visited.length / REGIONS.length) * 100);
   }, [visited.length]);
 
-  function toggleRegion(id) {
+  function selectRegion(id) {
     setSelectedId(id);
+  }
+
+  function toggleRegion(id) {
     setVisited((current) =>
       current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
     );
@@ -74,8 +77,8 @@ export default function NaxebiApp() {
           </div>
         </header>
 
-        <section className="grid flex-1 gap-6 lg:grid-cols-[1fr_360px]">
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-4 shadow-2xl shadow-black/30 sm:p-6">
+        <section className="grid flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-3 shadow-2xl shadow-black/30 sm:p-4">
             <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="text-xl font-bold">Карта регионов</h2>
@@ -94,7 +97,7 @@ export default function NaxebiApp() {
               regions={REGIONS}
               visited={visited}
               selectedId={selectedId}
-              onRegionClick={toggleRegion}
+              onRegionClick={selectRegion}
             />
           </div>
 
