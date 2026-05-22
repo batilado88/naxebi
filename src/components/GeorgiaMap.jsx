@@ -61,23 +61,24 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                                     }}
                                     style={{
                                         default: {
-                                            fill: isVisited ? "#ffffff" : "#27272a",
+                                            fill: isVisited ? region?.mapColor || "#ffffff" : "#27272a",
                                             stroke: isSelected ? "#ffffff" : "#52525b",
-                                            strokeWidth: isSelected ? 2.4 : 1,
+                                            strokeWidth: isSelected ? 2.8 : 1,
                                             outline: "none",
                                             cursor: regionId ? "pointer" : "default",
+                                            transition: "fill 180ms ease, stroke 180ms ease, stroke-width 180ms ease",
                                         },
                                         hover: {
-                                            fill: isVisited ? "#f5f5f5" : "#3f3f46",
+                                            fill: isVisited ? region?.mapColor || "#ffffff" : "#3f3f46",
                                             stroke: "#ffffff",
-                                            strokeWidth: 2,
+                                            strokeWidth: 2.4,
                                             outline: "none",
                                             cursor: regionId ? "pointer" : "default",
                                         },
                                         pressed: {
-                                            fill: "#ffffff",
+                                            fill: isVisited ? region?.mapColor || "#ffffff" : "#52525b",
                                             stroke: "#ffffff",
-                                            strokeWidth: 2,
+                                            strokeWidth: 2.8,
                                             outline: "none",
                                         },
                                     }}
