@@ -37,7 +37,7 @@ function normalizeRegionName(name = "") {
 
 export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick }) {
   return (
-    <div className="relative h-[calc(100vh-230px)] min-h-[680px] overflow-hidden rounded-[1.8rem] border border-white/10 bg-[#111113] p-3">
+    <div className="relative h-[calc(100vh-24px)] min-h-[720px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#111113] p-3 shadow-2xl shadow-black/50">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_38%,rgba(255,255,255,0.11),transparent_42%)]" />
 
       <div className="absolute -left-24 top-0 h-full w-[34%] rounded-r-[45%] bg-sky-500/20 blur-sm" />

@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import { MapPin, RotateCcw, Sparkles } from "lucide-react";
 import { REGIONS } from "./data/regions";
 import GeorgiaMap from "./components/GeorgiaMap";
@@ -46,117 +45,87 @@ export default function NaxebiApp() {
   }
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-white">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-8 px-4 py-6 sm:px-6 lg:px-8">
-        <header className="flex flex-col gap-5 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-2xl shadow-black/30 backdrop-blur md:flex-row md:items-end md:justify-between">
-          <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-sm text-white/70">
-              <Sparkles size={16} />
+    <main className="min-h-screen overflow-hidden bg-neutral-950 text-white">
+      <div className="relative min-h-screen p-3 sm:p-4">
+        <GeorgiaMap
+          regions={REGIONS}
+          visited={visited}
+          selectedId={selectedId}
+          onRegionClick={selectRegion}
+        />
+
+        <header className="pointer-events-none absolute left-5 top-5 z-20 flex max-w-xl flex-col gap-3 sm:left-7 sm:top-7">
+          <div className="pointer-events-auto rounded-[1.6rem] border border-white/10 bg-black/45 p-4 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-5">
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs text-white/70">
+              <Sparkles size={14} />
               Virtual scratch map of Georgia
             </div>
-            <h1 className="text-5xl font-black tracking-tight sm:text-6xl">Naxebi</h1>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-white/65">
-              Отмечай места в Грузии, где уже был. Открывай регионы, собирай прогресс и превращай карту в личную коллекцию поездок.
+            <h1 className="text-4xl font-black tracking-tight sm:text-5xl">Naxebi</h1>
+            <p className="mt-2 max-w-md text-sm leading-6 text-white/65">
+              Отмечай регионы Грузии, где уже был. Открывай карту постепенно и собирай личную историю поездок.
             </p>
-          </div>
-
-          <div className="min-w-64 rounded-3xl border border-white/10 bg-black/30 p-4">
-            <div className="mb-2 flex items-center justify-between text-sm text-white/60">
-              <span>Открыто</span>
-              <span>{visited.length}/{REGIONS.length}</span>
-            </div>
-            <div className="h-3 overflow-hidden rounded-full bg-white/10">
-              <motion.div
-                className="h-full rounded-full bg-white"
-                initial={false}
-                animate={{ width: `${progress}%` }}
-                transition={{ type: "spring", stiffness: 90, damping: 18 }}
-              />
-            </div>
-            <div className="mt-3 text-3xl font-black">{progress}%</div>
           </div>
         </header>
 
-        <section className="grid flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-3 shadow-2xl shadow-black/30 sm:p-4">
-            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h2 className="text-xl font-bold">Карта регионов</h2>
-                <p className="text-sm text-white/50">Пока это прототип-сетка. Следующий шаг — настоящая форма карты Грузии.</p>
-              </div>
-              <button
-                onClick={resetMap}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white/80 transition hover:bg-white/15"
-              >
-                <RotateCcw size={16} />
-                Сбросить
-              </button>
-            </div>
-
-            <GeorgiaMap
-              regions={REGIONS}
-              visited={visited}
-              selectedId={selectedId}
-              onRegionClick={selectRegion}
+        <div className="absolute right-5 top-5 z-20 w-[210px] rounded-[1.4rem] border border-white/10 bg-black/45 p-4 shadow-2xl shadow-black/40 backdrop-blur-md sm:right-7 sm:top-7">
+          <div className="mb-2 flex items-center justify-between text-xs text-white/60">
+            <span>Открыто</span>
+            <span>{visited.length}/{REGIONS.length}</span>
+          </div>
+          <div className="h-2.5 overflow-hidden rounded-full bg-white/10">
+            <div
+              className="h-full rounded-full bg-white transition-all duration-300"
+              style={{ width: `${progress}%` }}
             />
           </div>
+          <div className="mt-3 text-3xl font-black">{progress}%</div>
+        </div>
 
-          <aside className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-2xl shadow-black/30">
-            <div className="mb-6 flex items-center gap-3">
-              <div className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${selected.accent} text-2xl shadow-lg`}>
-                {selected.emoji}
-              </div>
-              <div>
-                <h2 className="text-2xl font-black">{selected.nameRu}</h2>
-                <p className="text-sm text-white/50">{selected.name}</p>
-              </div>
+        <aside className="absolute bottom-5 right-5 z-20 w-[min(360px,calc(100vw-40px))] rounded-[1.8rem] border border-white/10 bg-black/50 p-5 shadow-2xl shadow-black/50 backdrop-blur-md sm:bottom-7 sm:right-7">
+          <div className="mb-5 flex items-center gap-3">
+            <div className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${selected.accent} text-2xl shadow-lg`}>
+              {selected.emoji}
             </div>
-
-            <div className="rounded-3xl border border-white/10 bg-black/25 p-5">
-              <div className="mb-2 flex items-center gap-2 text-sm text-white/55">
-                <MapPin size={16} />
-                Статус региона
-              </div>
-              <div className="text-3xl font-black">
-                {selectedVisited ? "Открыт" : "Закрыт"}
-              </div>
-              <p className="mt-3 text-sm leading-6 text-white/55">
-                {selectedVisited
-                  ? "Этот регион уже добавлен в твою карту. Позже сюда можно будет прикрепить дату, фото и заметку."
-                  : "Нажми на регион на карте, чтобы отметить его как посещённый и стереть защитный слой."}
-              </p>
+            <div>
+              <h2 className="text-2xl font-black leading-tight">{selected.nameRu}</h2>
+              <p className="text-sm text-white/50">{selected.name}</p>
             </div>
+          </div>
 
-            <button
-              onClick={() => toggleRegion(selected.id)}
-              className={`mt-5 w-full rounded-2xl px-5 py-4 font-black transition ${selectedVisited
+          <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-4">
+            <div className="mb-2 flex items-center gap-2 text-sm text-white/55">
+              <MapPin size={16} />
+              Статус региона
+            </div>
+            <div className="text-3xl font-black">
+              {selectedVisited ? "Открыт" : "Закрыт"}
+            </div>
+            <p className="mt-3 text-sm leading-6 text-white/55">
+              {selectedVisited
+                ? "Регион уже открыт. Позже здесь будут дата поездки, фото, заметки и места внутри региона."
+                : "Выбери регион на карте, а потом нажми кнопку, чтобы стереть фольгу и открыть его."}
+            </p>
+          </div>
+
+          <button
+            onClick={() => toggleRegion(selected.id)}
+            className={`mt-4 w-full rounded-2xl px-5 py-4 font-black transition ${
+              selectedVisited
                 ? "bg-white/10 text-white/80 hover:bg-white/15"
                 : "bg-white text-black hover:bg-white/90"
-                }`}
-            >
-              {selectedVisited ? "Убрать отметку" : "Я был здесь"}
-            </button>
+            }`}
+          >
+            {selectedVisited ? "Убрать отметку" : "Я был здесь"}
+          </button>
 
-            <div className="mt-6">
-              <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-white/35">Открытые регионы</h3>
-              <div className="flex flex-wrap gap-2">
-                {visited.length === 0 ? (
-                  <span className="text-sm text-white/45">Пока ничего не открыто</span>
-                ) : (
-                  REGIONS.filter((region) => visited.includes(region.id)).map((region) => (
-                    <button
-                      key={region.id}
-                      onClick={() => setSelectedId(region.id)}
-                      className="rounded-full border border-white/10 bg-white/10 px-3 py-2 text-xs font-semibold text-white/75 hover:bg-white/15"
-                    >
-                      {region.emoji} {region.nameRu}
-                    </button>
-                  ))
-                )}
-              </div>
-            </div>
-          </aside>
-        </section>
+          <button
+            onClick={resetMap}
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white/70 transition hover:bg-white/15"
+          >
+            <RotateCcw size={16} />
+            Сбросить карту
+          </button>
+        </aside>
       </div>
     </main>
   );
