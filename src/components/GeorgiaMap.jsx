@@ -37,6 +37,25 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                 height={560}
                 className="relative z-10 h-full w-full"
             >
+
+                <defs>
+                    <pattern
+                        id="scratchPattern"
+                        patternUnits="userSpaceOnUse"
+                        width="18"
+                        height="18"
+                        patternTransform="rotate(25)"
+                    >
+                        <rect width="18" height="18" fill="#27272a" />
+                        <path d="M 0 4 L 18 4" stroke="#71717a" strokeWidth="1.2" opacity="0.45" />
+                        <path d="M 0 11 L 18 11" stroke="#a1a1aa" strokeWidth="0.8" opacity="0.25" />
+                    </pattern>
+
+                    <filter id="softGlow">
+                        <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#ffffff" floodOpacity="0.45" />
+                    </filter>
+                </defs>
+
                 <Geographies geography={geoData}>
                     {({ geographies }) =>
                         geographies.map((geo) => {
@@ -61,11 +80,12 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                                     }}
                                     style={{
                                         default: {
-                                            fill: isVisited ? region?.mapColor || "#ffffff" : "#27272a",
+                                            fill: isVisited ? region?.mapColor || "#ffffff" : "url(#scratchPattern)",
                                             stroke: isSelected ? "#ffffff" : "#52525b",
                                             strokeWidth: isSelected ? 2.8 : 1,
                                             outline: "none",
                                             cursor: regionId ? "pointer" : "default",
+                                            filter: isSelected ? "url(#softGlow)" : "none",
                                             transition: "fill 180ms ease, stroke 180ms ease, stroke-width 180ms ease",
                                         },
                                         hover: {
@@ -74,6 +94,7 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                                             strokeWidth: 2.4,
                                             outline: "none",
                                             cursor: regionId ? "pointer" : "default",
+                                            filter: "url(#softGlow)",
                                         },
                                         pressed: {
                                             fill: isVisited ? region?.mapColor || "#ffffff" : "#52525b",
