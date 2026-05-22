@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, RotateCcw, Check, Sparkles, Lock } from "lucide-react";
+import { MapPin, RotateCcw, Sparkles } from "lucide-react";
 import { REGIONS } from "./data/regions";
+import GeorgiaMap from "./components/GeorgiaMap";
 
 const STORAGE_KEY = "naxebi.visited.regions.v1";
 
@@ -89,43 +90,12 @@ export default function NaxebiApp() {
               </button>
             </div>
 
-            <div className="grid min-h-[560px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {REGIONS.map((region, index) => {
-                const isVisited = visited.includes(region.id);
-                const isSelected = selectedId === region.id;
-
-                return (
-                  <motion.button
-                    key={region.id}
-                    onClick={() => toggleRegion(region.id)}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.035 }}
-                    className={`group relative overflow-hidden rounded-[1.6rem] border p-4 text-left transition ${isSelected ? "border-white/50" : "border-white/10"
-                      } ${isVisited ? "bg-white/10" : "bg-neutral-900"}`}
-                  >
-                    <div className={`absolute inset-0 bg-gradient-to-br ${region.accent} transition duration-500 ${isVisited ? "opacity-90" : "opacity-0"}`} />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.22),transparent_35%)] opacity-70" />
-                    {!isVisited && (
-                      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.12)_0,rgba(255,255,255,0.04)_35%,rgba(0,0,0,0.25)_100%)]" />
-                    )}
-
-                    <div className="relative flex h-full min-h-32 flex-col justify-between">
-                      <div className="flex items-start justify-between gap-2">
-                        <span className="text-3xl">{region.emoji}</span>
-                        <span className={`rounded-full p-2 ${isVisited ? "bg-black/20" : "bg-white/10"}`}>
-                          {isVisited ? <Check size={16} /> : <Lock size={16} />}
-                        </span>
-                      </div>
-                      <div>
-                        <div className="font-black leading-tight">{region.nameRu}</div>
-                        <div className="mt-1 text-xs text-white/65">{region.name}</div>
-                      </div>
-                    </div>
-                  </motion.button>
-                );
-              })}
-            </div>
+            <GeorgiaMap
+              regions={REGIONS}
+              visited={visited}
+              selectedId={selectedId}
+              onRegionClick={toggleRegion}
+            />
           </div>
 
           <aside className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-2xl shadow-black/30">
@@ -157,8 +127,8 @@ export default function NaxebiApp() {
             <button
               onClick={() => toggleRegion(selected.id)}
               className={`mt-5 w-full rounded-2xl px-5 py-4 font-black transition ${selectedVisited
-                  ? "bg-white/10 text-white/80 hover:bg-white/15"
-                  : "bg-white text-black hover:bg-white/90"
+                ? "bg-white/10 text-white/80 hover:bg-white/15"
+                : "bg-white text-black hover:bg-white/90"
                 }`}
             >
               {selectedVisited ? "Убрать отметку" : "Я был здесь"}
