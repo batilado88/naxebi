@@ -54,14 +54,14 @@ export default function NaxebiApp() {
           onRegionClick={selectRegion}
         />
 
-        <header className="pointer-events-none absolute left-5 top-5 z-20 flex max-w-xl flex-col gap-3 sm:left-7 sm:top-7">
+        <header className="pointer-events-none absolute left-5 top-5 z-20 flex max-w-sm flex-col gap-3 sm:left-7 sm:top-7">
           <div className="pointer-events-auto rounded-[1.6rem] border border-white/10 bg-black/45 p-4 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-5">
             <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs text-white/70">
               <Sparkles size={14} />
               Virtual scratch map of Georgia
             </div>
             <h1 className="text-4xl font-black tracking-tight sm:text-5xl">Naxebi</h1>
-            <p className="mt-2 max-w-md text-sm leading-6 text-white/65">
+            <p className="mt-2 hidden max-w-md text-sm leading-6 text-white/65 xl:block">
               Отмечай регионы Грузии, где уже был. Открывай карту постепенно и собирай личную историю поездок.
             </p>
           </div>
@@ -109,11 +109,10 @@ export default function NaxebiApp() {
 
           <button
             onClick={() => toggleRegion(selected.id)}
-            className={`mt-4 w-full rounded-2xl px-5 py-4 font-black transition ${
-              selectedVisited
+            className={`mt-4 w-full rounded-2xl px-5 py-4 font-black transition ${selectedVisited
                 ? "bg-white/10 text-white/80 hover:bg-white/15"
                 : "bg-white text-black hover:bg-white/90"
-            }`}
+              }`}
           >
             {selectedVisited ? "Убрать отметку" : "Я был здесь"}
           </button>

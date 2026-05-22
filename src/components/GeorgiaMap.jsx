@@ -1,5 +1,8 @@
+import { useMemo } from "react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
+import { feature } from "topojson-client";
 import geoData from "../data/georgia-regions.json";
+import worldData from "../data/world-countries-50m.json";
 
 const REGION_LABEL_COORDS = {
   abkhazia: [41.05, 43.05],
@@ -15,6 +18,14 @@ const REGION_LABEL_COORDS = {
   kvemo: [44.9, 41.35],
   kakheti: [45.65, 41.85],
 };
+
+const CONTEXT_LABELS = [
+  { name: "Black Sea", coordinates: [40.0, 42.1], type: "water" },
+  { name: "Russia", coordinates: [43.7, 43.45], type: "land" },
+  { name: "Turkey", coordinates: [41.4, 41.0], type: "land" },
+  { name: "Armenia", coordinates: [44.5, 40.75], type: "land" },
+  { name: "Azerbaijan", coordinates: [46.3, 41.25], type: "land" },
+];
 
 function normalizeRegionName(name = "") {
   const value = name.toLowerCase();
@@ -36,30 +47,13 @@ function normalizeRegionName(name = "") {
 }
 
 export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick }) {
+  const worldCountries = useMemo(() => {
+    return feature(worldData, worldData.objects.countries);
+  }, []);
+
   return (
-    <div className="relative h-[calc(100vh-24px)] min-h-[720px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#111113] p-3 shadow-2xl shadow-black/50">
+    <div className="relative h-[calc(100vh-24px)] min-h-[720px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#17202a] p-3 shadow-2xl shadow-black/50">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_38%,rgba(255,255,255,0.11),transparent_42%)]" />
-
-      <div className="absolute -left-24 top-0 h-full w-[34%] rounded-r-[45%] bg-sky-500/20 blur-sm" />
-      <div className="absolute left-8 top-1/2 -translate-y-1/2 rotate-[-90deg] text-xs font-black uppercase tracking-[0.35em] text-sky-100/35">
-        Black Sea
-      </div>
-
-      <div className="pointer-events-none absolute left-[18%] top-[8%] text-xs font-bold uppercase tracking-[0.25em] text-white/20">
-        Russia
-      </div>
-      <div className="pointer-events-none absolute left-[9%] bottom-[8%] text-xs font-bold uppercase tracking-[0.25em] text-white/20">
-        Turkey
-      </div>
-      <div className="pointer-events-none absolute right-[31%] bottom-[7%] text-xs font-bold uppercase tracking-[0.25em] text-white/20">
-        Armenia
-      </div>
-      <div className="pointer-events-none absolute right-[8%] bottom-[20%] text-xs font-bold uppercase tracking-[0.25em] text-white/20">
-        Azerbaijan
-      </div>
-      <div className="pointer-events-none absolute left-[38%] top-[15%] text-xs font-bold uppercase tracking-[0.25em] text-white/20">
-        Greater Caucasus
-      </div>
 
       <ComposableMap
         projection="geoMercator"
@@ -87,7 +81,74 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
           <filter id="softGlow">
             <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#ffffff" floodOpacity="0.45" />
           </filter>
+
+          <filter id="mapShadow">
+            <feDropShadow dx="0" dy="8" stdDeviation="10" floodColor="#000000" floodOpacity="0.35" />
+          </filter>
         </defs>
+
+        <rect width="1200" height="760" fill="#17202a" />
+
+        <Geographies geography={worldCountries}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const countryName = geo.properties.name;
+
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  style={{
+                    default: {
+                      fill: countryName === "Georgia" ? "#2f343a" : "#25282d",
+                      stroke: "#4b5563",
+                      strokeWidth: countryName === "Georgia" ? 0.7 : 0.45,
+                      outline: "none",
+                      pointerEvents: "none",
+                    },
+                    hover: {
+                      fill: countryName === "Georgia" ? "#2f343a" : "#25282d",
+                      stroke: "#4b5563",
+                      strokeWidth: 0.45,
+                      outline: "none",
+                      pointerEvents: "none",
+                    },
+                    pressed: {
+                      fill: countryName === "Georgia" ? "#2f343a" : "#25282d",
+                      stroke: "#4b5563",
+                      strokeWidth: 0.45,
+                      outline: "none",
+                      pointerEvents: "none",
+                    },
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+
+        {CONTEXT_LABELS.map((label) => (
+          <Marker key={label.name} coordinates={label.coordinates}>
+            <text
+              textAnchor="middle"
+              dominantBaseline="middle"
+              className="pointer-events-none select-none"
+              style={{
+                fill: label.type === "water" ? "rgba(186, 230, 253, 0.38)" : "rgba(244, 244, 245, 0.25)",
+                fontSize: label.type === "water" ? 18 : 13,
+                fontWeight: 800,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                paintOrder: "stroke",
+                stroke: "#17202a",
+                strokeWidth: 5,
+                strokeLinejoin: "round",
+              }}
+            >
+              {label.name}
+            </text>
+          </Marker>
+        ))}
 
         <Geographies geography={geoData}>
           {({ geographies }) => (
@@ -119,7 +180,7 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                         strokeWidth: isSelected ? 3.2 : 1,
                         outline: "none",
                         cursor: regionId ? "pointer" : "default",
-                        filter: isSelected ? "url(#softGlow)" : "none",
+                        filter: isSelected ? "url(#softGlow)" : "url(#mapShadow)",
                         transition: "fill 180ms ease, stroke 180ms ease, stroke-width 180ms ease",
                       },
                       hover: {
@@ -145,9 +206,8 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
 
               {regions.map((region) => {
                 const coordinates = REGION_LABEL_COORDS[region.id];
-                const isVisited = visited.includes(region.id);
 
-                if (!coordinates || isVisited) return null;
+                if (!coordinates) return null;
 
                 return (
                   <Marker key={region.id} coordinates={coordinates}>
@@ -164,6 +224,7 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                         stroke: "#18181b",
                         strokeWidth: 4,
                         strokeLinejoin: "round",
+                        opacity: visited.includes(region.id) ? 0.72 : 1,
                       }}
                     >
                       {region.nameRu}
