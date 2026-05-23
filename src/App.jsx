@@ -65,9 +65,6 @@ export default function NaxebiApp() {
               Naxebi
             </h1>
 
-            <p className="mt-2 hidden max-w-xs text-sm leading-6 text-white/65 2xl:block">
-              Отмечай регионы Грузии, где уже был. Открывай карту постепенно и собирай личную историю поездок.
-            </p>
           </div>
         </header>
 
@@ -124,10 +121,11 @@ export default function NaxebiApp() {
 
           <button
             onClick={() => toggleRegion(selected.id)}
-            className={`mt-4 w-full rounded-2xl px-5 py-4 font-black transition ${selectedVisited
+            className={`mt-4 w-full rounded-2xl px-5 py-4 font-black transition ${
+              selectedVisited
                 ? "bg-white/10 text-white/80 hover:bg-white/15"
                 : "bg-white text-black hover:bg-white/90"
-              }`}
+            }`}
           >
             {selectedVisited ? "Убрать отметку" : "Я был здесь"}
           </button>

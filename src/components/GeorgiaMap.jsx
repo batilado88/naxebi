@@ -73,8 +73,8 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
-          center: [43.65, 42.05],
-          scale: 7200,
+          center: [43.25, 42.12],
+          scale: 7600,
         }}
         width={1200}
         height={760}
