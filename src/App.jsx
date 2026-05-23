@@ -54,14 +54,18 @@ export default function NaxebiApp() {
           onRegionClick={selectRegion}
         />
 
-        <header className="pointer-events-none absolute left-5 top-5 z-20 flex max-w-sm flex-col gap-3 sm:left-7 sm:top-7">
-          <div className="pointer-events-auto rounded-[1.6rem] border border-white/10 bg-black/45 p-4 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-5">
+        <header className="pointer-events-none absolute left-5 top-5 z-20 flex max-w-xs flex-col gap-3 sm:left-7 sm:top-7">
+          <div className="pointer-events-auto rounded-[1.4rem] border border-white/10 bg-black/45 p-3 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-4">
             <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs text-white/70">
               <Sparkles size={14} />
               Virtual scratch map of Georgia
             </div>
-            <h1 className="text-4xl font-black tracking-tight sm:text-5xl">Naxebi</h1>
-            <p className="mt-2 hidden max-w-md text-sm leading-6 text-white/65 xl:block">
+
+            <h1 className="text-3xl font-black tracking-tight sm:text-4xl">
+              Naxebi
+            </h1>
+
+            <p className="mt-2 hidden max-w-xs text-sm leading-6 text-white/65 2xl:block">
               Отмечай регионы Грузии, где уже был. Открывай карту постепенно и собирай личную историю поездок.
             </p>
           </div>
@@ -70,24 +74,33 @@ export default function NaxebiApp() {
         <div className="absolute right-5 top-5 z-20 w-[210px] rounded-[1.4rem] border border-white/10 bg-black/45 p-4 shadow-2xl shadow-black/40 backdrop-blur-md sm:right-7 sm:top-7">
           <div className="mb-2 flex items-center justify-between text-xs text-white/60">
             <span>Открыто</span>
-            <span>{visited.length}/{REGIONS.length}</span>
+            <span>
+              {visited.length}/{REGIONS.length}
+            </span>
           </div>
+
           <div className="h-2.5 overflow-hidden rounded-full bg-white/10">
             <div
               className="h-full rounded-full bg-white transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
+
           <div className="mt-3 text-3xl font-black">{progress}%</div>
         </div>
 
         <aside className="absolute bottom-5 right-5 z-20 w-[min(360px,calc(100vw-40px))] rounded-[1.8rem] border border-white/10 bg-black/50 p-5 shadow-2xl shadow-black/50 backdrop-blur-md sm:bottom-7 sm:right-7">
           <div className="mb-5 flex items-center gap-3">
-            <div className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${selected.accent} text-2xl shadow-lg`}>
+            <div
+              className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${selected.accent} text-2xl shadow-lg`}
+            >
               {selected.emoji}
             </div>
+
             <div>
-              <h2 className="text-2xl font-black leading-tight">{selected.nameRu}</h2>
+              <h2 className="text-2xl font-black leading-tight">
+                {selected.nameRu}
+              </h2>
               <p className="text-sm text-white/50">{selected.name}</p>
             </div>
           </div>
@@ -97,9 +110,11 @@ export default function NaxebiApp() {
               <MapPin size={16} />
               Статус региона
             </div>
+
             <div className="text-3xl font-black">
               {selectedVisited ? "Открыт" : "Закрыт"}
             </div>
+
             <p className="mt-3 text-sm leading-6 text-white/55">
               {selectedVisited
                 ? "Регион уже открыт. Позже здесь будут дата поездки, фото, заметки и места внутри региона."
