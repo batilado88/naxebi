@@ -62,7 +62,13 @@ function normalizeRegionName(name = "") {
   return null;
 }
 
-export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick }) {
+export default function GeorgiaMap({
+  regions,
+  visited,
+  selectedId,
+  onRegionClick,
+  showCities = true,
+}) {
   const worldCountries = useMemo(() => {
     return feature(worldData, worldData.objects.countries);
   }, []);
@@ -261,39 +267,40 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                   </Marker>
                 );
               })}
-              {CITIES.map((city) => {
-                const isLarge = city.size === "large";
-                const isMedium = city.size === "medium";
+              {showCities &&
+                CITIES.map((city) => {
+                  const isLarge = city.size === "large";
+                  const isMedium = city.size === "medium";
 
-                return (
-                  <Marker key={city.id} coordinates={city.coordinates}>
-                    <circle
-                      r={isLarge ? 4.2 : isMedium ? 3.4 : 2.8}
-                      fill="#111827"
-                      stroke="#f8e7c0"
-                      strokeWidth={1.5}
-                    />
+                  return (
+                    <Marker key={city.id} coordinates={city.coordinates}>
+                      <circle
+                        r={isLarge ? 4.2 : isMedium ? 3.4 : 2.8}
+                        fill="#111827"
+                        stroke="#f8e7c0"
+                        strokeWidth={1.5}
+                      />
 
-                    <text
-                      x={isLarge ? 8 : 6}
-                      y={isLarge ? 4 : 3}
-                      className="pointer-events-none select-none"
-                      style={{
-                        fill: "rgba(255, 247, 237, 0.86)",
-                        fontSize: isLarge ? 11 : 9,
-                        fontWeight: 700,
-                        letterSpacing: "0.01em",
-                        paintOrder: "stroke",
-                        stroke: "#111827",
-                        strokeWidth: 3,
-                        strokeLinejoin: "round",
-                      }}
-                    >
-                      {city.name}
-                    </text>
-                  </Marker>
-                );
-              })}
+                      <text
+                        x={isLarge ? 8 : 6}
+                        y={isLarge ? 4 : 3}
+                        className="pointer-events-none select-none"
+                        style={{
+                          fill: "rgba(255, 247, 237, 0.86)",
+                          fontSize: isLarge ? 11 : 9,
+                          fontWeight: 700,
+                          letterSpacing: "0.01em",
+                          paintOrder: "stroke",
+                          stroke: "#111827",
+                          strokeWidth: 3,
+                          strokeLinejoin: "round",
+                        }}
+                      >
+                        {city.name}
+                      </text>
+                    </Marker>
+                  );
+                })}
             </>
           )}
         </Geographies>
