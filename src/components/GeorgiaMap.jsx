@@ -191,25 +191,31 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                     style={{
                       default: {
                         fill: isVisited ? region?.mapColor || "#ffffff" : "url(#scratchGoldGradient)",
-                        stroke: isSelected ? "#ffffff" : "#52525b",
-                        strokeWidth: isSelected ? 3.2 : 1,
+                        stroke: isSelected ? "#f8e7c0" : "rgba(45, 55, 72, 0.72)",
+                        strokeWidth: isSelected ? 2.2 : 0.75,
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
                         outline: "none",
                         cursor: regionId ? "pointer" : "default",
-                        filter: isSelected ? "url(#softGlow)" : "url(#mapShadow)",
+                        filter: isSelected ? "url(#softGlow)" : "none",
                         transition: "fill 180ms ease, stroke 180ms ease, stroke-width 180ms ease",
                       },
                       hover: {
                         fill: isVisited ? region?.mapColor || "#ffffff" : "url(#scratchGoldHoverGradient)",
-                        stroke: "#ffffff",
-                        strokeWidth: 2.6,
+                        stroke: "#f8e7c0",
+                        strokeWidth: 1.8,
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
                         outline: "none",
                         cursor: regionId ? "pointer" : "default",
                         filter: "url(#softGlow)",
                       },
                       pressed: {
                         fill: isVisited ? region?.mapColor || "#ffffff" : "#b67d3e",
-                        stroke: "#ffffff",
-                        strokeWidth: 3,
+                        stroke: "#f8e7c0",
+                        strokeWidth: 2,
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
                         outline: "none",
                       },
                     }}
@@ -232,12 +238,12 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                       className="pointer-events-none select-none"
                       style={{
                         fill: visited.includes(region.id) ? "rgba(255,255,255,0.72)" : "#f8e7c0",
-                        fontSize: region.id === "tbilisi" ? 10 : 13,
-                        fontWeight: 850,
+                        fontSize: region.id === "tbilisi" ? 9 : 12,
+                        fontWeight: 750,
                         letterSpacing: "0.015em",
                         paintOrder: "stroke",
                         stroke: visited.includes(region.id) ? "#111827" : "#5a3518",
-                        strokeWidth: 3.5,
+                        strokeWidth: 2.4,
                         strokeLinejoin: "round",
                       }}
                     >

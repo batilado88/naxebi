@@ -4,7 +4,7 @@ export const REGIONS = [
         name: "Tbilisi",
         nameRu: "Тбилиси",
         accent: "from-amber-300 to-orange-500",
-        mapColor: "#f97316",
+        mapColor: "#e35d3f",
         emoji: "🏙️",
     },
     {
@@ -12,7 +12,7 @@ export const REGIONS = [
         name: "Adjara",
         nameRu: "Аджария",
         accent: "from-cyan-300 to-blue-500",
-        mapColor: "#0ea5e9",
+        mapColor: "#2f9fb3",
         emoji: "🌊",
     },
     {
@@ -20,7 +20,7 @@ export const REGIONS = [
         name: "Guria",
         nameRu: "Гурия",
         accent: "from-lime-300 to-green-500",
-        mapColor: "#84cc16",
+        mapColor: "#86a85c",
         emoji: "🌿",
     },
     {
@@ -28,7 +28,7 @@ export const REGIONS = [
         name: "Imereti",
         nameRu: "Имерети",
         accent: "from-yellow-300 to-amber-500",
-        mapColor: "#f59e0b",
+        mapColor: "#d59b42",
         emoji: "🌉",
     },
     {
@@ -36,7 +36,7 @@ export const REGIONS = [
         name: "Kakheti",
         nameRu: "Кахети",
         accent: "from-purple-300 to-fuchsia-500",
-        mapColor: "#a855f7",
+        mapColor: "#b85f8b",
         emoji: "🍷",
     },
     {
@@ -44,7 +44,7 @@ export const REGIONS = [
         name: "Mtskheta-Mtianeti",
         nameRu: "Мцхета-Мтианети",
         accent: "from-sky-300 to-indigo-500",
-        mapColor: "#6366f1",
+        mapColor: "#6d86b8",
         emoji: "⛰️",
     },
     {
@@ -52,7 +52,7 @@ export const REGIONS = [
         name: "Racha-Lechkhumi",
         nameRu: "Рача-Лечхуми",
         accent: "from-rose-300 to-red-500",
-        mapColor: "#ef4444",
+        mapColor: "#c15b4a",
         emoji: "🏔️",
     },
     {
@@ -60,7 +60,7 @@ export const REGIONS = [
         name: "Samegrelo-Zemo Svaneti",
         nameRu: "Самегрело-Сванети",
         accent: "from-emerald-300 to-teal-600",
-        mapColor: "#14b8a6",
+        mapColor: "#4f9d82",
         emoji: "🗻",
     },
     {
@@ -68,7 +68,7 @@ export const REGIONS = [
         name: "Samtskhe-Javakheti",
         nameRu: "Самцхе-Джавахети",
         accent: "from-orange-300 to-red-500",
-        mapColor: "#fb7185",
+        mapColor: "#c77b4f",
         emoji: "🏰",
     },
     {
@@ -76,7 +76,7 @@ export const REGIONS = [
         name: "Shida Kartli",
         nameRu: "Шида-Картли",
         accent: "from-stone-300 to-zinc-600",
-        mapColor: "#a1a1aa",
+        mapColor: "#9c8f74",
         emoji: "🛤️",
     },
     {
@@ -84,7 +84,7 @@ export const REGIONS = [
         name: "Kvemo Kartli",
         nameRu: "Квемо-Картли",
         accent: "from-green-300 to-lime-600",
-        mapColor: "#22c55e",
+        mapColor: "#6fa768",
         emoji: "🌾",
     },
     {
@@ -92,7 +92,7 @@ export const REGIONS = [
         name: "Abkhazia",
         nameRu: "Абхазия",
         accent: "from-slate-300 to-slate-600",
-        mapColor: "#64748b",
+        mapColor: "#75889a",
         emoji: "🌫️",
     },
 ];
