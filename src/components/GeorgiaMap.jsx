@@ -19,6 +19,21 @@ const REGION_LABEL_COORDS = {
   kakheti: [45.65, 41.85],
 };
 
+const REGION_LABELS = {
+  abkhazia: ["Абхазия"],
+  samegrelo: ["Самегрело", "Сванети"],
+  racha: ["Рача", "Лечхуми"],
+  imereti: ["Имерети"],
+  guria: ["Гурия"],
+  adjara: ["Аджария"],
+  samtskhe: ["Самцхе", "Джавахети"],
+  shida: ["Шида", "Картли"],
+  mtskheta: ["Мцхета", "Мтианети"],
+  tbilisi: ["Тбилиси"],
+  kvemo: ["Квемо", "Картли"],
+  kakheti: ["Кахети"],
+};
+
 const CONTEXT_LABELS = [
   { name: "Black Sea", coordinates: [40.0, 42.1], type: "water" },
   { name: "Russia", coordinates: [43.7, 43.45], type: "land" },
@@ -66,17 +81,17 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
         className="relative z-10 h-full w-full"
       >
         <defs>
-          <pattern
-            id="scratchPattern"
-            patternUnits="userSpaceOnUse"
-            width="18"
-            height="18"
-            patternTransform="rotate(25)"
-          >
-            <rect width="18" height="18" fill="#27272a" />
-            <path d="M 0 4 L 18 4" stroke="#71717a" strokeWidth="1.2" opacity="0.45" />
-            <path d="M 0 11 L 18 11" stroke="#a1a1aa" strokeWidth="0.8" opacity="0.25" />
-          </pattern>
+          <linearGradient id="scratchGoldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#b17a3c" />
+            <stop offset="45%" stopColor="#c6904d" />
+            <stop offset="100%" stopColor="#a56d34" />
+          </linearGradient>
+
+          <linearGradient id="scratchGoldHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#c08843" />
+            <stop offset="45%" stopColor="#d39b57" />
+            <stop offset="100%" stopColor="#b5783b" />
+          </linearGradient>
 
           <filter id="softGlow">
             <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#ffffff" floodOpacity="0.45" />
@@ -175,7 +190,7 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                     }}
                     style={{
                       default: {
-                        fill: isVisited ? region?.mapColor || "#ffffff" : "url(#scratchPattern)",
+                        fill: isVisited ? region?.mapColor || "#ffffff" : "url(#scratchGoldGradient)",
                         stroke: isSelected ? "#ffffff" : "#52525b",
                         strokeWidth: isSelected ? 3.2 : 1,
                         outline: "none",
@@ -184,7 +199,7 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                         transition: "fill 180ms ease, stroke 180ms ease, stroke-width 180ms ease",
                       },
                       hover: {
-                        fill: isVisited ? region?.mapColor || "#ffffff" : "#3f3f46",
+                        fill: isVisited ? region?.mapColor || "#ffffff" : "url(#scratchGoldHoverGradient)",
                         stroke: "#ffffff",
                         strokeWidth: 2.6,
                         outline: "none",
@@ -192,7 +207,7 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                         filter: "url(#softGlow)",
                       },
                       pressed: {
-                        fill: isVisited ? region?.mapColor || "#ffffff" : "#52525b",
+                        fill: isVisited ? region?.mapColor || "#ffffff" : "#b67d3e",
                         stroke: "#ffffff",
                         strokeWidth: 3,
                         outline: "none",
@@ -216,18 +231,25 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                       dominantBaseline="middle"
                       className="pointer-events-none select-none"
                       style={{
-                        fill: "#f4f4f5",
-                        fontSize: region.id === "tbilisi" ? 12 : 15,
-                        fontWeight: 800,
-                        letterSpacing: "0.02em",
+                        fill: visited.includes(region.id) ? "rgba(255,255,255,0.72)" : "#f8e7c0",
+                        fontSize: region.id === "tbilisi" ? 10 : 13,
+                        fontWeight: 850,
+                        letterSpacing: "0.015em",
                         paintOrder: "stroke",
-                        stroke: "#18181b",
-                        strokeWidth: 4,
+                        stroke: visited.includes(region.id) ? "#111827" : "#5a3518",
+                        strokeWidth: 3.5,
                         strokeLinejoin: "round",
-                        opacity: visited.includes(region.id) ? 0.72 : 1,
                       }}
                     >
-                      {region.nameRu}
+                      {(REGION_LABELS[region.id] || [region.nameRu]).map((line, index, lines) => (
+                        <tspan
+                          key={line}
+                          x={0}
+                          dy={index === 0 ? `${-(lines.length - 1) * 0.45}em` : "1em"}
+                        >
+                          {line}
+                        </tspan>
+                      ))}
                     </text>
                   </Marker>
                 );
