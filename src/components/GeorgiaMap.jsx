@@ -68,6 +68,7 @@ export default function GeorgiaMap({
   selectedId,
   onRegionClick,
   showCities = true,
+  showRegionLabels = true,
 }) {
   const worldCountries = useMemo(() => {
     return feature(worldData, worldData.objects.countries);
@@ -232,41 +233,44 @@ export default function GeorgiaMap({
                 );
               })}
 
-              {regions.map((region) => {
-                const coordinates = REGION_LABEL_COORDS[region.id];
+              {showRegionLabels &&
+                regions.map((region) => {
+                  const coordinates = REGION_LABEL_COORDS[region.id];
 
-                if (!coordinates) return null;
+                  if (!coordinates) return null;
 
-                return (
-                  <Marker key={region.id} coordinates={coordinates}>
-                    <text
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      className="pointer-events-none select-none"
-                      style={{
-                        fill: visited.includes(region.id) ? "rgba(255,255,255,0.72)" : "#f8e7c0",
-                        fontSize: region.id === "tbilisi" ? 9 : 12,
-                        fontWeight: 750,
-                        letterSpacing: "0.015em",
-                        paintOrder: "stroke",
-                        stroke: visited.includes(region.id) ? "#111827" : "#5a3518",
-                        strokeWidth: 2.4,
-                        strokeLinejoin: "round",
-                      }}
-                    >
-                      {(REGION_LABELS[region.id] || [region.nameRu]).map((line, index, lines) => (
-                        <tspan
-                          key={line}
-                          x={0}
-                          dy={index === 0 ? `${-(lines.length - 1) * 0.45}em` : "1em"}
-                        >
-                          {line}
-                        </tspan>
-                      ))}
-                    </text>
-                  </Marker>
-                );
-              })}
+                  return (
+                    <Marker key={region.id} coordinates={coordinates}>
+                      <text
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        className="pointer-events-none select-none"
+                        style={{
+                          fill: visited.includes(region.id)
+                            ? "rgba(255,255,255,0.72)"
+                            : "#f8e7c0",
+                          fontSize: region.id === "tbilisi" ? 9 : 12,
+                          fontWeight: 750,
+                          letterSpacing: "0.015em",
+                          paintOrder: "stroke",
+                          stroke: visited.includes(region.id) ? "#111827" : "#5a3518",
+                          strokeWidth: 2.4,
+                          strokeLinejoin: "round",
+                        }}
+                      >
+                        {(REGION_LABELS[region.id] || [region.nameRu]).map((line, index, lines) => (
+                          <tspan
+                            key={line}
+                            x={0}
+                            dy={index === 0 ? `${-(lines.length - 1) * 0.45}em` : "1em"}
+                          >
+                            {line}
+                          </tspan>
+                        ))}
+                      </text>
+                    </Marker>
+                  );
+                })}
               {showCities &&
                 CITIES.map((city) => {
                   const isLarge = city.size === "large";

@@ -19,6 +19,7 @@ export default function NaxebiApp() {
   const [selectedId, setSelectedId] = useState("tbilisi");
 
   const [showCities, setShowCities] = useState(true);
+  const [showRegionLabels, setShowRegionLabels] = useState(true);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(visited));
@@ -55,6 +56,7 @@ export default function NaxebiApp() {
           selectedId={selectedId}
           onRegionClick={selectRegion}
           showCities={showCities}
+          showRegionLabels={showRegionLabels}
         />
 
         <header className="pointer-events-none absolute left-5 top-5 z-20 flex max-w-xs flex-col gap-3 sm:left-7 sm:top-7">
@@ -94,16 +96,29 @@ export default function NaxebiApp() {
             Слои
           </div>
 
-          <button
-            onClick={() => setShowCities((value) => !value)}
-            className={`flex w-full items-center justify-between rounded-2xl px-3 py-2.5 text-sm font-semibold transition ${showCities
-                ? "bg-white text-black"
-                : "bg-white/10 text-white/70 hover:bg-white/15"
-              }`}
-          >
-            <span>Города</span>
-            <span>{showCities ? "On" : "Off"}</span>
-          </button>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => setShowCities((value) => !value)}
+              className={`flex w-full items-center justify-between rounded-2xl px-3 py-2.5 text-sm font-semibold transition ${showCities
+                  ? "bg-white text-black"
+                  : "bg-white/10 text-white/70 hover:bg-white/15"
+                }`}
+            >
+              <span>Города</span>
+              <span>{showCities ? "On" : "Off"}</span>
+            </button>
+
+            <button
+              onClick={() => setShowRegionLabels((value) => !value)}
+              className={`flex w-full items-center justify-between rounded-2xl px-3 py-2.5 text-sm font-semibold transition ${showRegionLabels
+                  ? "bg-white text-black"
+                  : "bg-white/10 text-white/70 hover:bg-white/15"
+                }`}
+            >
+              <span>Регионы</span>
+              <span>{showRegionLabels ? "On" : "Off"}</span>
+            </button>
+          </div>
         </div>
 
         <aside className="absolute bottom-5 right-5 z-20 w-[min(360px,calc(100vw-40px))] rounded-[1.8rem] border border-white/10 bg-black/50 p-5 shadow-2xl shadow-black/50 backdrop-blur-md sm:bottom-7 sm:right-7">
