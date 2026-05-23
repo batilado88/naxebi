@@ -3,6 +3,7 @@ import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps
 import { feature } from "topojson-client";
 import geoData from "../data/georgia-regions.json";
 import worldData from "../data/world-countries-50m.json";
+import { CITIES } from "../data/cities";
 
 const REGION_LABEL_COORDS = {
   abkhazia: [41.05, 43.05],
@@ -256,6 +257,39 @@ export default function GeorgiaMap({ regions, visited, selectedId, onRegionClick
                           {line}
                         </tspan>
                       ))}
+                    </text>
+                  </Marker>
+                );
+              })}
+              {CITIES.map((city) => {
+                const isLarge = city.size === "large";
+                const isMedium = city.size === "medium";
+
+                return (
+                  <Marker key={city.id} coordinates={city.coordinates}>
+                    <circle
+                      r={isLarge ? 4.2 : isMedium ? 3.4 : 2.8}
+                      fill="#111827"
+                      stroke="#f8e7c0"
+                      strokeWidth={1.5}
+                    />
+
+                    <text
+                      x={isLarge ? 8 : 6}
+                      y={isLarge ? 4 : 3}
+                      className="pointer-events-none select-none"
+                      style={{
+                        fill: "rgba(255, 247, 237, 0.86)",
+                        fontSize: isLarge ? 11 : 9,
+                        fontWeight: 700,
+                        letterSpacing: "0.01em",
+                        paintOrder: "stroke",
+                        stroke: "#111827",
+                        strokeWidth: 3,
+                        strokeLinejoin: "round",
+                      }}
+                    >
+                      {city.name}
                     </text>
                   </Marker>
                 );

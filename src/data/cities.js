@@ -1,0 +1,16 @@
+export const CITIES = [
+  { id: "tbilisi", name: "Тбилиси", coordinates: [44.8271, 41.7151], size: "large" },
+  { id: "batumi", name: "Батуми", coordinates: [41.6168, 41.6168], size: "large" },
+  { id: "kutaisi", name: "Кутаиси", coordinates: [42.7042, 42.2679], size: "medium" },
+  { id: "zugdidi", name: "Зугдиди", coordinates: [41.8709, 42.5088], size: "small" },
+  { id: "mestia", name: "Местия", coordinates: [42.7297, 43.0456], size: "small" },
+  { id: "ambrolauri", name: "Амбролаури", coordinates: [43.1622, 42.5211], size: "small" },
+  { id: "gori", name: "Гори", coordinates: [44.1158, 41.9862], size: "small" },
+  { id: "borjomi", name: "Боржоми", coordinates: [43.4128, 41.8375], size: "small" },
+  { id: "akhaltsikhe", name: "Ахалцихе", coordinates: [42.9826, 41.6390], size: "small" },
+  { id: "telavi", name: "Телави", coordinates: [45.4731, 41.9198], size: "small" },
+  { id: "sighnaghi", name: "Сигнахи", coordinates: [45.9210, 41.6186], size: "small" },
+  { id: "kazbegi", name: "Степанцминда", coordinates: [44.6433, 42.6575], size: "small" },
+  { id: "rustavi", name: "Рустави", coordinates: [45.0115, 41.5495], size: "small" },
+  { id: "ozurgeti", name: "Озургети", coordinates: [42.0000, 41.9244], size: "small" },
+];
