@@ -390,7 +390,7 @@ export default function GeorgiaMap({
         </ZoomableGroup>
       </ComposableMap>
 
-      <div className="absolute bottom-5 left-5 z-20 flex overflow-hidden rounded-2xl border border-white/10 bg-black/45 shadow-2xl shadow-black/40 backdrop-blur-md">
+      <div className="absolute bottom-[104px] left-3 z-20 flex overflow-hidden rounded-2xl border border-white/10 bg-black/45 shadow-2xl shadow-black/40 backdrop-blur-md sm:bottom-5 sm:left-5">
         <button
           onClick={zoomOut}
           className="grid h-11 w-11 place-items-center border-r border-white/10 text-xl font-black text-white/80 transition hover:bg-white/10"
