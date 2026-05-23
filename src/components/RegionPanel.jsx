@@ -7,10 +7,10 @@ export default function RegionPanel({
   onResetMap,
 }) {
   return (
-    <aside className="absolute bottom-3 left-3 right-3 z-20 rounded-[1.4rem] border border-white/10 bg-black/55 p-3 shadow-2xl shadow-black/50 backdrop-blur-md sm:bottom-7 sm:left-auto sm:right-7 sm:w-[min(360px,calc(100vw-40px))] sm:rounded-[1.8rem] sm:p-5">
+    <aside className="absolute bottom-2 left-2 right-2 z-20 rounded-[1.25rem] border border-white/10 bg-black/60 p-2.5 shadow-2xl shadow-black/50 backdrop-blur-md sm:bottom-7 sm:left-auto sm:right-7 sm:w-[min(360px,calc(100vw-40px))] sm:rounded-[1.8rem] sm:p-5">
       <div className="flex items-center gap-3 sm:mb-5">
         <div
-          className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${selected.accent} text-xl shadow-lg sm:h-14 sm:w-14 sm:text-2xl`}
+          className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${selected.accent} text-lg shadow-lg sm:h-14 sm:w-14 sm:rounded-2xl sm:text-2xl`}
         >
           {selected.emoji}
         </div>
@@ -44,10 +44,10 @@ export default function RegionPanel({
         </p>
       </div>
 
-      <div className="mt-3 flex gap-2 sm:block">
+      <div className="mt-2 flex gap-2 sm:mt-3 sm:block">
         <button
           onClick={onToggleRegion}
-          className={`min-h-11 flex-1 rounded-2xl px-4 py-3 text-sm font-black transition sm:mt-4 sm:w-full sm:px-5 sm:py-4 sm:text-base ${selectedVisited
+          className={`min-h-10 flex-1 rounded-2xl px-4 py-2.5 text-sm font-black transition sm:mt-4 sm:w-full sm:px-5 sm:py-4 sm:text-base ${selectedVisited
               ? "bg-white/10 text-white/80 hover:bg-white/15"
               : "bg-white text-black hover:bg-white/90"
             }`}
